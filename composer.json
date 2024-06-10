@@ -1,0 +1,19 @@
+{
+    "name": "benjamin/training-guillemot",
+    "type": "project",
+    "require": {
+        "twig/twig": "^3.10"
+    },
+    "license": "MIT",
+    "autoload": {
+        "psr-4": {
+            "App\\": "src/"
+        }
+    },
+    "authors": [
+        {
+            "name": "Benjamin Zaslavsky",
+            "email": "benjamin.zaslavsky@gmail.com"
+        }
+    ]
+}

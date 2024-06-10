@@ -1,8 +1,14 @@
 <?php
 
+namespace App\User;
+
+use App\Auth\Interface\AuthInterface;
+use App\Auth\Trait\AuthTrait;
+
 abstract class User implements AuthInterface
 {
     use AuthTrait;
+
     protected ?string $name = null;
 
     public function __construct(
@@ -10,6 +16,8 @@ abstract class User implements AuthInterface
         string $password,
         protected int $age,
     ) {
+        $this->login = $login;
+        $this->password = $password;
     }
 
     public function getName(): ?string

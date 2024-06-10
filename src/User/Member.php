@@ -1,5 +1,7 @@
 <?php
 
+namespace App\User;
+
 class Member extends User
 {
     protected static int $count = 0;
