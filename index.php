@@ -1,5 +1,8 @@
 <?php
 
+require_once __DIR__.'/AuthInterface.php';
+require_once __DIR__.'/AuthTrait.php';
+require_once __DIR__.'/User.php';
 require_once __DIR__.'/Member.php';
 require_once __DIR__.'/AdminLevel.php';
 require_once __DIR__.'/Admin.php';
