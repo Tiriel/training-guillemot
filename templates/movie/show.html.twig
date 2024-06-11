@@ -9,12 +9,15 @@
 </style>
 
 <div class="example-wrapper">
-    <h1>Hello {{ controller_name }}! ✅</h1>
+    <h1>{{ movie.title }}</h1>
 
-    This friendly message is coming from:
+    <img class="float-end" src="{{ movie.poster }}" alt="{{ movie.title }} Poster">
     <ul>
-        <li>Your controller at <code>/home/benjamin/Dev/sl/formations/training-guillemot/src/Controller/MovieController.php</code></li>
-        <li>Your template at <code>/home/benjamin/Dev/sl/formations/training-guillemot/templates/movie/index.html.twig</code></li>
+        <li>Id : {{ movie.id }}</li>
+        <li>Released : {{ movie.releasedAt|date('d M Y') }}</li>
+        <li>Country : {{ movie.country }}</li>
+        <li>Plot : {{ movie.plot }}</li>
+        <li>Genres : {{ movie.genres|join(', ') }}</li>
     </ul>
 </div>
 {% endblock %}
