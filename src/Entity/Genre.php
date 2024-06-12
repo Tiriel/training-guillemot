@@ -4,8 +4,10 @@ namespace App\Entity;
 
 use App\Repository\GenreRepository;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 #[ORM\Entity(repositoryClass: GenreRepository::class, readOnly: true)]
+#[Assert\Traverse(false)]
 class Genre
 {
     #[ORM\Id]

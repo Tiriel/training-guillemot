@@ -7,6 +7,7 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 #[ORM\Entity(repositoryClass: BookRepository::class)]
 #[ORM\ChangeTrackingPolicy('DEFERRED_EXPLICIT')]
@@ -17,12 +18,17 @@ class Book
     #[ORM\Column]
     private ?int $id = null;
 
+    #[Assert\NotBlank()]
+    #[Assert\Length(min: 2)]
     #[ORM\Column(length: 255)]
     private ?string $title = null;
 
+    #[Assert\Length(min: 5)]
     #[ORM\Column(length: 255, nullable: true)]
     private ?string $author = null;
 
+    #[Assert\NotBlank]
+    #[Assert\Isbn]
     #[ORM\Column(length: 30)]
     private ?string $isbn = null;
 
@@ -32,6 +38,8 @@ class Book
     #[ORM\Column(type: Types::DATE_IMMUTABLE)]
     private ?\DateTimeImmutable $editedAt = null;
 
+    #[Assert\NotBlank]
+    #[Assert\Url]
     #[ORM\Column(length: 255)]
     private ?string $cover = null;
 

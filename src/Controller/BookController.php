@@ -43,12 +43,18 @@ class BookController extends AbstractController
 
     #[Route('/new', name: 'app_book_new')]
     #[Route('/{id}/edit', name: 'app_book_edit', requirements: ['id' => '\d+'])]
-    public function newBook(?Book $book, BookRepository $repository): Response
+    public function newBook(?Book $book, Request $request, BookRepository $repository): Response
     {
         $book ??= new Book();
         $form = $this->createForm(BookType::class, $book);
 
-        // $repository->save($book, true);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $repository->save($book, true);
+
+            return $this->redirectToRoute('app_book_show', ['id' => $book->getId()]);
+        }
 
         return $this->render('book/new.html.twig', [
             'form' => $form,

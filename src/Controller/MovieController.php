@@ -5,6 +5,7 @@ namespace App\Controller;
 use App\Entity\Movie;
 use App\Form\MovieType;
 use App\Repository\MovieRepository;
+use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -34,10 +35,19 @@ class MovieController extends AbstractController
 
     #[Route('/new', name: 'app_movie_new', methods: ['GET', 'POST'])]
     #[Route('/{id}/edit', name: 'app_movie_edit', requirements: ['id' => '\d+'], methods: ['GET', 'POST'])]
-    public function newMovie(?Movie $movie): Response
+    public function newMovie(?Movie $movie, Request $request, EntityManagerInterface $manager): Response
     {
         $movie ??= new Movie();
         $form = $this->createForm(MovieType::class, $movie);
+
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $manager->persist($movie);
+            $manager->flush();
+
+            return $this->redirectToRoute('app_movie_show', ['id' => $movie->getId()]);
+        }
 
         return $this->render('movie/new.html.twig', [
             'form' => $form,
