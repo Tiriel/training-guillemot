@@ -5,6 +5,7 @@ namespace App\Repository;
 use App\Entity\Book;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
+use function Doctrine\ORM\QueryBuilder;
 
 /**
  * @extends ServiceEntityRepository<Book>
@@ -32,6 +33,16 @@ class BookRepository extends ServiceEntityRepository
         if ($flush) {
             $this->getEntityManager()->flush();
         }
+    }
+
+    public function findLikeTitle(string $title): iterable
+    {
+        $qb = $this->createQueryBuilder('b');
+
+        return $qb->where($qb->expr()->like('b.title', ':title'))
+            ->setParameter('title', "%$title%")
+            ->getQuery()
+            ->getResult();
     }
 
     //    /**
