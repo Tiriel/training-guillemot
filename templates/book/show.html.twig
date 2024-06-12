@@ -1,20 +1,23 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Hello BookController!{% endblock %}
+{% block title %}Book : {{ book is not null ? book.title : 'Not found' }}{% endblock %}
 
 {% block body %}
-<style>
-    .example-wrapper { margin: 1em auto; max-width: 800px; width: 95%; font: 18px/1.5 sans-serif; }
-    .example-wrapper code { background: #F5F5F5; padding: 2px 6px; }
-</style>
+    <div class="example-wrapper">
+        {% if book is not null %}
+            <h1>Book : {{ book.title }}</h1>
 
-<div class="example-wrapper">
-    <h1>Hello {{ controller_name }}! ✅</h1>
-
-    This friendly message is coming from:
-    <ul>
-        <li>Your controller at <code>/home/benjamin/Dev/sl/formations/training-guillemot/src/Controller/BookController.php</code></li>
-        <li>Your template at <code>/home/benjamin/Dev/sl/formations/training-guillemot/templates/book/index.html.twig</code></li>
-    </ul>
-</div>
+            <img class="float-end" src="{{ book.cover }}" alt="{{ book.title }} poster">
+            <ul class="list-group list-group-flush">
+                <li class="list-group-item">Id: {{ book.id }}</li>
+                <li class="list-group-item">Author: {{ book.author }}</li>
+                <li class="list-group-item">Editor: {{ book.editor }}</li>
+                <li class="list-group-item">ISBN: {{ book.isbn }}</li>
+                <li class="list-group-item">Edited At: {{ book.editedAt|date('d M Y') }}</li>
+                <li class="list-group-item">Plot: {{ book.plot }}</li>
+            </ul>
+        {% else %}
+            <h1>Book not found.</h1>
+        {% endif %}
+    </div>
 {% endblock %}

@@ -33,12 +33,10 @@ class BookController extends AbstractController
 
     #[Route('/{!id}',name: 'app_book_show', requirements: ['id' => '\d+'], defaults: ['id' => 1], methods: ['GET'])]
     //#[Route('/book/{id<\d+>?1}', name: 'app_book_show', priority: 1)]
-    public function show(int $id, BookRepository $repository): Response
+    public function show(?Book $book): Response
     {
-        $book = $repository->find($id);
-
         return $this->render('book/show.html.twig', [
-            'controller_name' => 'BookController::show - id : '.$book->getId(),
+            'book' => $book,
         ]);
     }
 

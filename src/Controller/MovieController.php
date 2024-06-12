@@ -5,6 +5,7 @@ namespace App\Controller;
 use App\Entity\Movie;
 use App\Repository\MovieRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
 
@@ -12,10 +13,13 @@ use Symfony\Component\Routing\Attribute\Route;
 class MovieController extends AbstractController
 {
     #[Route('', name: 'app_movie_index')]
-    public function index(): Response
+    public function index(MovieRepository $repository, Request $request): Response
     {
+        $limit = 12;
+        $page = $request->query->getInt('page', 1);
+
         return $this->render('movie/index.html.twig', [
-            'controller_name' => 'MovieController',
+            'movies' => $repository->findBy([], ['id' => 'DESC'], $limit, $limit * ($page - 1))
         ]);
     }
 
