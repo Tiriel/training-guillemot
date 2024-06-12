@@ -1,15 +1,16 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Hello MainController!{% endblock %}
+{% form_theme form 'bootstrap_5_layout.html.twig' %}
+
+{% block title %}Contact us{% endblock %}
 
 {% block body %}
-<div class="example-wrapper">
-    <h1>Hello {{ controller_name }}! ✅</h1>
+<div class="example-wrapper w-50 m-auto">
+    <h1>Contact us</h1>
 
-    This friendly message is coming from:
-    <ul>
-        <li>Your controller at <code>/home/benjamin/Dev/sl/formations/training-guillemot/src/Controller/MainController.php</code></li>
-        <li>Your template at <code>/home/benjamin/Dev/sl/formations/training-guillemot/templates/main/index.html.twig</code></li>
-    </ul>
+    {{ form_start(form) }}
+    {{ form_widget(form) }}
+    <button type="submit" class="btn btn-primary">Send</button>
+    {{ form_end(form) }}
 </div>
 {% endblock %}

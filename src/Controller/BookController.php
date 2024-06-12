@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\Entity\Book;
+use App\Form\BookType;
 use App\Repository\BookRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -41,20 +42,16 @@ class BookController extends AbstractController
     }
 
     #[Route('/new', name: 'app_book_new')]
-    public function newBook(BookRepository $repository): Response
+    #[Route('/{id}/edit', name: 'app_book_edit', requirements: ['id' => '\d+'])]
+    public function newBook(?Book $book, BookRepository $repository): Response
     {
-        $book = (new Book())
-            ->setTitle('1984')
-            ->setAuthor('Georges Orwell')
-            ->setPlot('This is basically now')
-            ->setCover('http://foo')
-            ->setEditedAt(new \DateTimeImmutable('01-01-1951'))
-            ->setEditor('Pocket')
-            ->setIsbn('913-1234567-123')
-        ;
+        $book ??= new Book();
+        $form = $this->createForm(BookType::class, $book);
 
-        $repository->save($book, true);
+        // $repository->save($book, true);
 
-        return $this->redirectToRoute('app_book_show', ['id' => $book->getId()]);
+        return $this->render('book/new.html.twig', [
+            'form' => $form,
+        ]);
     }
 }
