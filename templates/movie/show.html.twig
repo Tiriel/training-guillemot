@@ -9,6 +9,7 @@
 </style>
 
 <div class="example-wrapper">
+    {% if movie is not null %}
     <h1>{{ movie.title }}</h1>
 
     <img class="float-end" src="{{ movie.poster }}" alt="{{ movie.title }} Poster">
@@ -17,7 +18,10 @@
         <li>Released : {{ movie.releasedAt|date('d M Y') }}</li>
         <li>Country : {{ movie.country }}</li>
         <li>Plot : {{ movie.plot }}</li>
-        <li>Genres : {{ movie.genres|join(', ') }}</li>
+{#        <li>Genres : {{ movie.genres|join(', ') }}</li>#}
     </ul>
+    {% else %}
+    <h1>Movie not found</h1>
+    {% endif %}
 </div>
 {% endblock %}
