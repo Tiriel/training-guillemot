@@ -18,7 +18,7 @@
         <li>Released : {{ movie.releasedAt|date('d M Y') }}</li>
         <li>Country : {{ movie.country }}</li>
         <li>Plot : {{ movie.plot }}</li>
-{#        <li>Genres : {{ movie.genres|join(', ') }}</li>#}
+        <li>Genres : {{ movie.genres|map(g => g.name)|join(', ') }}</li>
     </ul>
     {% else %}
     <h1>Movie not found</h1>
