@@ -21,7 +21,7 @@ class SlackNotificationFactory implements NotificationFactoryInterface
             ->block((new SlackActionsBlock())
                 ->button(
                     'Symfony documentation',
-                    'https://www.symfony.com/docs',
+                    'https://www.symfony.com/doc',
                     'primary'
                 )
             )

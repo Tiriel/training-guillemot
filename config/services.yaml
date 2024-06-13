@@ -5,6 +5,8 @@
 # https://symfony.com/doc/current/best_practices.html#use-parameters-for-application-configuration
 parameters:
     app.limit: 12
+    env(DATABASE_URL): 'foosql://app:toto@localhost:1234/bar'
+    sf_version: '%env(key:require:key:symfony:key:extra:json:file:resolve:COMPOSER_PATH)%'
 
 services:
     # default configuration for services in *this* file
