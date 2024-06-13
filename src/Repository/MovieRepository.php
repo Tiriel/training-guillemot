@@ -16,6 +16,18 @@ class MovieRepository extends ServiceEntityRepository
         parent::__construct($registry, Movie::class);
     }
 
+    public function findLikeOmdb(string $title): ?Movie
+    {
+        $qb = $this->createQueryBuilder('m');
+
+        return $qb->andWhere($qb->expr()->like('m.title', ':title'))
+            ->setParameter('title', "%$title%")
+            ->orderBy('m.releasedAt', 'ASC')
+            ->setMaxResults(1)
+            ->getQuery()
+            ->getOneOrNullResult();
+    }
+
     //    /**
     //     * @return Movie[] Returns an array of Movie objects
     //     */
