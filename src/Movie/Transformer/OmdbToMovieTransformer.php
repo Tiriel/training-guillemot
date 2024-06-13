@@ -36,8 +36,8 @@ class OmdbToMovieTransformer implements OmdbTransformerInterface
             ->setCountry($data['Country'])
             ->setReleasedAt(new \DateTimeImmutable($date))
             ->setPoster($data['Poster'])
-            ->setRated($date['Rated'])
-            ->setImdbId($date['imdbID'])
+            ->setRated($data['Rated'])
+            ->setImdbId($data['imdbID'])
             ->setPrice(5.0)
         ;
     }
