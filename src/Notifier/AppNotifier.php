@@ -16,6 +16,7 @@ class AppNotifier
         #[TaggedIterator('app.notification_factory', defaultIndexMethod: 'getIndex')]
         protected iterable $factories,
     ) {
+        $this->factories = $factories instanceof \Traversable ? iterator_to_array($factories) : $factories;
     }
 
     public function sendNotification(string $message, User $user)

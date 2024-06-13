@@ -22,7 +22,7 @@ class OmdbApiConsumer
             [
                 'query' => [
                     'plot' => 'full',
-                    'apikey' => '',
+                    'apikey' => '77e9a2a5',
                     $type->getQueryParam() => $value,
                 ]
             ]
