@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use App\Book\BookManager;
 use App\Entity\Book;
 use App\Form\BookType;
 use App\Repository\BookRepository;
@@ -36,6 +37,16 @@ class BookController extends AbstractController
     //#[Route('/book/{id<\d+>?1}', name: 'app_book_show', priority: 1)]
     public function show(?Book $book): Response
     {
+        return $this->render('book/show.html.twig', [
+            'book' => $book,
+        ]);
+    }
+
+    #[Route('/title/{title}', name: 'app_book_title', methods: ['GET'])]
+    public function title(string $title, BookManager $manager): Response
+    {
+        $book = $manager->findByTitle($title);
+
         return $this->render('book/show.html.twig', [
             'book' => $book,
         ]);
