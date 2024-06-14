@@ -3,11 +3,27 @@ security:
     password_hashers:
         Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface: 'auto'
     # https://symfony.com/doc/current/security.html#loading-the-user-the-user-provider
+
+    role_hierarchy:
+        ROLE_USER: ~
+        ROLE_MODERATOR: ROLE_USER
+        ROLE_PROVIDER: ROLE_USER
+        ROLE_OMDB: ROLE_USER
+        ROLE_ADMIN:
+            - ROLE_MODERATOR
+            - ROLE_PROVIDER
+            - ROLE_OMDB
+
+    access_decision_manager:
+        strategy: affirmative # priority, consensus, unanimous
+        allow_if_all_abstain: false
+        allow_if_equal_granted_denied: true
+
     providers:
         app_admin_users:
             memory:
                 users:
-                    admin@admin.com: { password: '', roles: [ROLE_USER, ROLE_ADMIN] }
+                    admin@admin.com: { password: '%env(ADMIN_PWD)%', roles: [ROLE_USER, ROLE_ADMIN] }
         app_entity_users:
             entity:
                 class: App\Entity\User
@@ -51,7 +67,9 @@ security:
     # Easy way to control access for large sections of your site
     # Note: Only the *first* access control that matches will be used
     access_control:
-        # - { path: ^/admin, roles: ROLE_ADMIN }
+        - { path: ^/login, roles: PUBLIC_ACCESS }
+        - { path: ^/admin, roles: ROLE_ADMIN }
+        - { path: ^/\w+, roles: ROLE_USER }
         # - { path: ^/profile, roles: ROLE_USER }
 
 when@test:
