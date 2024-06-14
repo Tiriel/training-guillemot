@@ -35,6 +35,8 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\Column(type: Types::DATE_IMMUTABLE, nullable: true)]
     private ?\DateTimeImmutable $birthday = null;
 
+    private ?int $age;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -123,5 +125,10 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         $this->birthday = $birthday;
 
         return $this;
+    }
+
+    public function getAge(): ?int
+    {
+        return $this->age ?? $this->age = $this->birthday?->diff(new \DateTimeImmutable())->y;
     }
 }
