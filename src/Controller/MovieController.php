@@ -22,7 +22,8 @@ class MovieController extends AbstractController
         $page = $request->query->getInt('page', 1);
 
         return $this->render('movie/index.html.twig', [
-            'movies' => $repository->findBy([], ['id' => 'DESC'], $limit, $limit * ($page - 1))
+            'movies' => $repository->findBy([], ['id' => 'DESC'], $limit, $limit * ($page - 1)),
+            'count' => ceil($repository->count() / $limit),
         ]);
     }
 

@@ -23,5 +23,6 @@
                 <p>No movies in database yet...</p>
             {% endfor %}
         </section>
+        {{ include('includes/_pagination_links.html.twig', {target: 'app_movie_index'}) }}
     </div>
 {% endblock %}

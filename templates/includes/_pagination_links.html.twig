@@ -1,0 +1,16 @@
+{% set current = app.request.query.get('page', 1) %}
+<nav aria-label="Pagination" class="py-5 m-auto">
+    <ul class="pagination">
+        <li class="page-item{{ current == 1 ? ' disabled' }}">
+            <a class="page-link" href="{{ path(target, {page: current - 1}) }}">Précédent</a>
+        </li>
+        {% for page in 1..count %}
+            <li class="page-item{{ current == page ? ' active' }}">
+                <a class="page-link" href="{{ path(target, {page: page}) }}">{{ page }}</a>
+            </li>
+        {% endfor %}
+        <li class="page-item{{ current == count ? ' disabled' }}">
+            <a class="page-link" href="{{ path(target, {page: current + 1}) }}">Suivant</a>
+        </li>
+    </ul>
+</nav>

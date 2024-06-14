@@ -22,14 +22,14 @@ class BookController extends AbstractController
     )]
     public function index(BookRepository $repository, Request $request): Response
     {
-        $limit = 20;
+        $limit = 9;
         $page = $request->query->get('page', 1);
 
         $books = $repository->findBy([], ['id' => 'DESC'], $limit, $limit * ($page - 1));
 
         return $this->render('book/index.html.twig', [
-            'controller_name' => 'BookController::index',
             'books' => $books,
+            'count' => ceil($repository->count() / $limit),
         ]);
     }
 
